@@ -25,11 +25,11 @@
         <domain includeSubdomains="true">localdomain</domain>
     </domain-config>
 
-    <debug-overrides>
-        <trust-anchors>
+
+    <trust-anchors>
             <certificates src="system" />
             <certificates src="user" />
-        </trust-anchors>
-    </debug-overrides>
+    </trust-anchors>
+
 
 </network-security-config>
