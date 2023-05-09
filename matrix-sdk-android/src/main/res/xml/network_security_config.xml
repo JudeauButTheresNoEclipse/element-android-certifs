@@ -12,5 +12,10 @@
         <!-- Localhost for Android emulator -->
         <domain includeSubdomains="true">10.0.2.2</domain>
     </domain-config>
+    
+    <trust-anchors>
+            <certificates src="system" />
+            <certificates src="user" />
+    </trust-anchors>
 
 </network-security-config>
