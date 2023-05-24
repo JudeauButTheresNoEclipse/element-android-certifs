@@ -16,6 +16,8 @@
 
 package org.matrix.android.sdk.internal.network.ssl
 
+import android.content.Intent
+import io.realm.Realm.getApplicationContext
 import okhttp3.ConnectionSpec
 import okhttp3.internal.tls.OkHostnameVerifier
 import org.matrix.android.sdk.api.auth.data.HomeServerConnectionConfig
@@ -183,11 +185,11 @@ internal object CertUtil {
                 TLSSocketFactory(trustPinned, hsConfig.tlsVersions)
             } else {
                 val sslContext = SSLContext.getInstance("TLS")
-                sslContext.init(null, trustPinned, java.security.SecureRandom())
+                sslContext.init(globalAlias.cert, trustPinned, java.security.SecureRandom())
                 sslContext.socketFactory
             }
-
             return PinnedSSLSocketFactory(sslSocketFactory, defaultTrustManager!!)
+
         } catch (e: Exception) {
             throw RuntimeException(e)
         }

@@ -17,6 +17,7 @@
 package org.matrix.android.sdk.internal.auth
 
 import android.net.Uri
+import android.util.Log
 import dagger.Lazy
 import okhttp3.OkHttpClient
 import org.matrix.android.sdk.api.MatrixPatterns
@@ -187,6 +188,15 @@ internal class DefaultAuthenticationService @Inject constructor(
                                     it
                                 },
                                 {
+                                    /*if (it is Failure.OtherServerError &&
+                                            it.httpCode == HttpsURLConnection.HTTP_BAD_REQUEST /* 400 */ &&
+                                                !globalAlias.certNeeded &&
+                                                    it.errorBody.contains("No required SSL certificate was sent")
+                                    ) {
+                                        globalAlias.certNeeded = true;
+                                        getLoginFlowInternal(homeServerConnectionConfig);
+                                    }
+                                    else*/
                                     if (it is Failure.OtherServerError &&
                                             it.httpCode == HttpsURLConnection.HTTP_NOT_FOUND /* 404 */) {
                                         // It's maybe a Web client url?

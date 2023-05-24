@@ -2,7 +2,12 @@
 <network-security-config>
     <!-- Ref: https://developer.android.com/training/articles/security-config.html -->
     <!-- By default, do not allow clearText traffic -->
-    <base-config cleartextTrafficPermitted="false" />
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+            <certificates src="user" />
+        </trust-anchors>
+    </base-config>
 
     <!-- Allow clearText traffic on some specified host -->
     <domain-config cleartextTrafficPermitted="true">
@@ -11,11 +16,12 @@
         <domain includeSubdomains="true">127.0.0.1</domain>
         <!-- Localhost for Android emulator -->
         <domain includeSubdomains="true">10.0.2.2</domain>
-    </domain-config>
-    
-    <trust-anchors>
+        <trust-anchors>
             <certificates src="system" />
             <certificates src="user" />
-    </trust-anchors>
+        </trust-anchors>
+    </domain-config>
+    
+
 
 </network-security-config>
