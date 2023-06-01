@@ -42,7 +42,6 @@ internal fun OkHttpClient.Builder.addAccessTokenInterceptor(accessTokenProvider:
 
 internal fun OkHttpClient.Builder.addSocketFactory(homeServerConnectionConfig: HomeServerConnectionConfig): OkHttpClient.Builder {
     try {
-        Thread.sleep(3000)
         val pair = CertUtil.newPinnedSSLSocketFactory(homeServerConnectionConfig)
         sslSocketFactory(pair.sslSocketFactory, pair.x509TrustManager)
         hostnameVerifier(CertUtil.newHostnameVerifier(homeServerConnectionConfig))
