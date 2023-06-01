@@ -39,6 +39,7 @@ import im.vector.app.core.debug.DebugNavigator
 import im.vector.app.core.di.ActiveSessionHolder
 import im.vector.app.core.error.fatalError
 import im.vector.app.core.extensions.commitTransaction
+import im.vector.app.core.network.ChooseCertificateActivity
 import im.vector.app.features.VectorFeatures
 import im.vector.app.features.analytics.AnalyticsTracker
 import im.vector.app.features.analytics.extensions.toAnalyticsViewRoom
@@ -356,6 +357,10 @@ class DefaultNavigator @Inject constructor(
         }.start(context)
     }
 
+    override fun openChooseCertificate(context: Context) {
+        val intent = ChooseCertificateActivity.newIntent(context)
+        context.startActivity(intent)
+    }
     override fun openInviteUsersToRoom(fragmentActivity: FragmentActivity, roomId: String) {
         when (val currentSpace = spaceStateHandler.getCurrentSpace()) {
             null -> InviteUsersToRoomActivity.getIntent(fragmentActivity, roomId).start(fragmentActivity)

@@ -15,6 +15,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
 
     <!-- https://developer.android.com/develop/ui/views/notifications/notification-permission#exemptions -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
@@ -252,6 +253,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".features.home.HomeActivity" />
         </activity>
+        <activity android:name=".core.network.ChooseCertificateActivity" />
 
         <activity android:name=".features.qrcode.QrCodeScannerActivity" />
         <activity android:name=".features.crypto.quads.SharedSecureStorageActivity" />

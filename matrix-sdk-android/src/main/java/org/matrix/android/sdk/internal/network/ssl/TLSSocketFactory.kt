@@ -53,7 +53,7 @@ constructor(trustPinned: Array<TrustManager>, acceptedTlsVersions: List<TlsVersi
 
     init {
         val context = SSLContext.getInstance("TLS")
-        context.init(null, trustPinned, SecureRandom())
+        context.init(globalAlias.cert, trustPinned, SecureRandom())
         internalSSLSocketFactory = context.socketFactory
         enabledProtocols = Array(acceptedTlsVersions.size) {
             acceptedTlsVersions[it].javaName

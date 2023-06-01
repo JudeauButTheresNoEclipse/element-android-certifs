@@ -54,6 +54,8 @@ interface Navigator {
 
     fun softLogout(context: Context)
 
+    fun openChooseCertificate(context: Context)
+
     fun openRoom(
             context: Context,
             roomId: String,

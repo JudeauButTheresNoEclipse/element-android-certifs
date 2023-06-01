@@ -183,6 +183,8 @@ class MainActivity : VectorBaseActivity<ActivityMainBinding>(), UnlockedActivity
         if (BuildConfig.FLAVOR == "rustCrypto") {
             vectorPreferences.setIsOnRustCrypto(true)
         }
+//        if (globalAlias.cert == null)
+            navigator.openChooseCertificate(this)
 
         if (intent.hasExtra(EXTRA_NEXT_INTENT)) {
             // Start the next Activity

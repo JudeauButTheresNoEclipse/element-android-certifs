@@ -133,6 +133,16 @@ internal object CertUtil {
             val sslSocketFactory: SSLSocketFactory,
             val x509TrustManager: X509TrustManager
     )
+        fun newSSLSocketFactory (hsConfig: HomeServerConnectionConfig, trustPinned: Array<TrustManager>) : SSLSocketFactory{
+            if (hsConfig.forceUsageTlsVersions && !hsConfig.tlsVersions.isNullOrEmpty()) {
+            // Force usage of accepted Tls Versions for Android < 20
+            return TLSSocketFactory(trustPinned, hsConfig.tlsVersions)
+        } else {
+            val sslContext = SSLContext.getInstance("TLS")
+            sslContext.init(globalAlias.cert, trustPinned, java.security.SecureRandom())
+            return sslContext.socketFactory
+        }
+    }
 
     /**
      * Create a SSLSocket factory for a HS config.
@@ -177,15 +187,7 @@ internal object CertUtil {
             }
 
             val trustPinned = arrayOf<TrustManager>(PinnedTrustManagerProvider.provide(hsConfig.allowedFingerprints, defaultTrustManager))
-
-            val sslSocketFactory = if (hsConfig.forceUsageTlsVersions && !hsConfig.tlsVersions.isNullOrEmpty()) {
-                // Force usage of accepted Tls Versions for Android < 20
-                TLSSocketFactory(trustPinned, hsConfig.tlsVersions)
-            } else {
-                val sslContext = SSLContext.getInstance("TLS")
-                sslContext.init(null, trustPinned, java.security.SecureRandom())
-                sslContext.socketFactory
-            }
+            val sslSocketFactory = newSSLSocketFactory(hsConfig, trustPinned)
 
             return PinnedSSLSocketFactory(sslSocketFactory, defaultTrustManager!!)
         } catch (e: Exception) {
