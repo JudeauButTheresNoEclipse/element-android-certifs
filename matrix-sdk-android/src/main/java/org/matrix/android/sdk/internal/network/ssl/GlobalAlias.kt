@@ -16,7 +16,6 @@
 
 package org.matrix.android.sdk.internal.network.ssl
 
-object globalAlias {
+object GlobalAlias {
     var cert: Array<X509Impl>? = null
-    var certNeeded = true
 }
